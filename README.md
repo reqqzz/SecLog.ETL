@@ -34,12 +34,14 @@ docker ps
     kibana
 
 Если контейнеры не видны или статус Exited, выполните docker-compose logs -f и посмотрите, в чем ошибка (часто это нехватка оперативной памяти или занятый порт 9200).
+
 2. Проверка Elasticsearch
 
 Подождите около 30–60 секунд, пока Elasticsearch полностью инициализируется, и откройте в браузере:
 👉 http://localhost:9200
 
 Если вы видите JSON с полями "name" : "...", "cluster_name" : "docker-cluster", "version" : { "number" : "8.12.0" ... } — значит, база данных готова принимать логи.
+
 3. Запуск нашего приложения
 
 Теперь вернитесь в Visual Studio и нажмите F5.
@@ -58,6 +60,7 @@ info: SecLog.ETL.Services.ElasticService[0]
 👉 http://localhost:9200/_cat/indices?v
 
 Вы должны увидеть строку с индексом sec-logs-2026.10.18 (или текущую дату) и количеством документов (docs.count), которое будет расти.
+
 5. Самое интересное: Визуализация в Kibana
 
     Перейдите в Kibana: 👉 http://localhost:5601
@@ -73,7 +76,8 @@ info: SecLog.ETL.Services.ElasticService[0]
     В поле Timestamp field выберите timestamp.
 
     Нажмите Save data view to Kibana.
-   6: Смотрите логи (Discover)
+
+    6: Смотрите логи (Discover)
 
     Нажмите на иконку меню (три полоски) слева.
 
