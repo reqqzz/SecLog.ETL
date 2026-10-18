@@ -18,17 +18,32 @@ SOC-аналитики получают огромные объёмы логов
 - **Библиотеки:** `System.Threading.Channels`, `System.Text.Json`
 
 ## 🚀 Как запустить
-1. Поднимите инфраструктуру (Elasticsearch и Kibana):
-   ```bash
-   cd C:\Users\Admin\source\repos\SecLog.ETL
-   docker-compose up -d
+1. Проверка работы Docker
+    Запустите Docker Desktop
+
+Выполните в терминале:
+powershell
+docker-compose up -d
+
+docker ps
+
+Вы должны увидеть два запущенных контейнера:
+
+    elasticsearch
+
+    kibana
+
+Если контейнеры не видны или статус Exited, выполните docker-compose logs -f и посмотрите, в чем ошибка (часто это нехватка оперативной памяти или занятый порт 9200).
+2. Проверка Elasticsearch
 
 Подождите около 30–60 секунд, пока Elasticsearch полностью инициализируется, и откройте в браузере:
 👉 http://localhost:9200
 
 Если вы видите JSON с полями "name" : "...", "cluster_name" : "docker-cluster", "version" : { "number" : "8.12.0" ... } — значит, база данных готова принимать логи.
-2. Запуск приложения
- F5.
+3. Запуск нашего приложения
+
+Теперь вернитесь в Visual Studio и нажмите F5.
+
 В консоли должно появиться:
 text
 
@@ -48,3 +63,24 @@ info: SecLog.ETL.Services.ElasticService[0]
     Перейдите в Kibana: 👉 http://localhost:5601
 
     В левом меню выберите Stack Management (Управление стеком) -> Data Views (Представления данных).
+
+    Нажмите Create data view (Создать представление данных).
+
+    В поле Name напишите: SecLogs.
+
+    В поле Index pattern напишите: sec-logs-* (звездочка нужна, чтобы захватывать индексы за все дни).
+
+    В поле Timestamp field выберите timestamp.
+
+    Нажмите Save data view to Kibana.
+   6: Смотрите логи (Discover)
+
+    Нажмите на иконку меню (три полоски) слева.
+
+    В разделе Analytics выберите Discover.
+
+    В левом верхнем углу выберите созданное представление SecLogs.
+
+    Справа сверху настройте диапазон времени (например, выберите Last 15 minutes — «Последние 15 минут»).
+
+    ! таблицa с вашими логами. Вы можете развернуть любую запись и увидеть поля event.code, process.executable, process.command_line, которые вы распарсили из Sysmon XML
