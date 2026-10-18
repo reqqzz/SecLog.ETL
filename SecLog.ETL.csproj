@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>dotnet-SecLog.ETL-190dde15-168e-4907-82ff-a9a29cd73e48</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="SecLog.ETL.Tests\**" />
+    <Content Remove="SecLog.ETL.Tests\**" />
+    <EmbeddedResource Remove="SecLog.ETL.Tests\**" />
+    <None Remove="SecLog.ETL.Tests\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.1" />
+  </ItemGroup>
+</Project>
